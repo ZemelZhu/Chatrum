@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<script type="text/javascript" src="./jquery-1.4.4.min.js"></script>
+<script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+<title>Home</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+	var websocket;
+        $(function(){
+            
+                websocket = new WebSocket("ws://127.0.0.1:8080/Chatrum/echo");
+          
+            websocket.onopen = function (evnt) {
+                // $("#tou").html("链接服务器成功!")
+                $("#one").append(evnt.data);
+                // websocket.send("##");
+            };
+            websocket.onmessage = function (evnt) {
+                // $("#msg").html($("#msg").html() + "<br/>" + evnt.data);
+                $("#one").append(evnt.data);
+            };
+            websocket.onerror = function (evnt) {
+            };
+            websocket.onclose = function (evnt) {
+                // $("#tou").html("与服务器断开了链接!")
+            }
+           
+             $("#send").bind("click", function() {
+              
+                	var a=$("#bb").val();
+                	// alert(a);
+                    websocket.send(a+"<br>");
+             
+            });
+             
+          
+            
+        });
+          
+       
+    </script>
+</head>
+<body >
+<div id="one"></div>
+<input type="text"  id="bb">
+<input type="submit"  value="发送" id="send" >
+
+
+</body>
+
+</html>
