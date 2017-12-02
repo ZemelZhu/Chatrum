@@ -8,10 +8,10 @@
 <title>Home</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="text/javascript">
-	var websocket;
+
         $(function(){
-            
-                websocket = new WebSocket("ws://127.0.0.1:8080/Chatrum/echo");
+            var websocket;
+                websocket = new WebSocket("ws://127.0.0.1:8080/echo");
           
             websocket.onopen = function (evnt) {
                 // $("#tou").html("链接服务器成功!")

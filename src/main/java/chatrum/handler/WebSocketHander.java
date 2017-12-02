@@ -34,7 +34,8 @@ public class WebSocketHander implements WebSocketHandler {
     //接受消息处理消息
     public void handleMessage(WebSocketSession webSocketSession, WebSocketMessage<?> webSocketMessage) throws Exception {
     	textMessage.add(new TextMessage(webSocketMessage.getPayload() + ""));
-    	sendMessageToUsers(new TextMessage(webSocketMessage.getPayload() + ""));
+    
+    	sendMessageToUsers(webSocketSession,new TextMessage(webSocketMessage.getPayload() + ""));
     }
 
     public void handleTransportError(WebSocketSession webSocketSession, Throwable throwable) throws Exception {
@@ -55,14 +56,15 @@ public class WebSocketHander implements WebSocketHandler {
     }
     /**
      * 给所有在线用户发送消息
+     * @param webSocketSession 
      *
      * @param message
      */
-    public void sendMessageToUsers(TextMessage message) {
+    public void sendMessageToUsers(WebSocketSession webSocketSession, TextMessage message) {
     	
         for (WebSocketSession user : users) {
             try {
-                if (user.isOpen()) {
+                if (user.isOpen()&&user!=webSocketSession) {
                     user.sendMessage(message);
                 }
             } catch (IOException e) {
