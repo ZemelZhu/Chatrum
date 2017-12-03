@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>我的聊天室</title>
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+	<link rel="shortcut icon" type="image/x-icon" href="./image/vim_shortcut.ico">
+	<script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+	<script src="./js/jquery-1.11.3.min.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+<style type="text/css">
+	
+	.aa{
+		margin-bottom: 8%;
+		margin-top: 4%;
+
+	}
+	#gg{
+		/*background-color: #fff;*/
+		/*box-shadow: 2px 2px 3px #ccc;*/
+		font-size: 13px;
+	}
+	#ggg{
+		background-color: #ccc;
+	}
+	.Input{
+		/*padding-left: 20%;
+		padding-right: 20%;*/
+		margin-bottom:5%;
+	}
+	.ccc{
+		background-color: #666;
+	border-top: 1px solid #ccc;
+	padding-top: 20px;
+	/*text-align: center;*/
+	color: #eee;
+	}
+	body{
+		font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei UI", "Microsoft YaHei", SimHei, "\5B8B\4F53", simsun, sans-serif;
+		/*font-size: 40px;*/
+		background-color:#fff;
+	}
+	
+</style>
+</head>
+
+<body >
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+  
+   	<div class="navbar-header">
+   		<!-- <a href="index.html" class="navbar-brand logo"><img src="/image/face.jpg" alt="瓢城企训网"></a> -->
+
+        <a class="navbar-brand" href="#">我的聊天室</a>
+    </div>
+
+      	<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span> 游客123</a></li> -->
+				<li role="presentation" class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+     <span class="glyphicon glyphicon-user"></span >  <span id="username"></span> 
+    </a>
+   
+  </li>
+			</ul>	
+		</div>
+
+  </div>
+</nav>
+	<nav class="navbar navbar-default navbar-fixed-bottom ccc">
+  <div class="container">
+  
+  
+      <div class="collapse navbar-collapse" >
+      <div class="input-group Input">
+		<input type="text" class="form-control input-lg " placeholder="请输入内容" id="chat" onkeypress="bb()">
+		<!-- <textarea class="form-control" rows="2" id="chat" onkeypress="bb()"></textarea> -->
+		<span class="input-group-btn ">
+        <button class="btn btn-default btn-lg  btn-success" type="button" id="bb">Send</button>
+      </span>
+
+</div>
+     
+ 	</div>
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+
+
+<div class="container-fluid aa">
+		<div class="row">
+			<div class="col-md-9">
+
+						<ul class="media-list" id="gg">
+						</ul>
+
+			</div>
+			<div class="col-md-3">
+
+			</div>
+
+		<!-- 成员面板 -->
+			<div class="col-md-3">
+				<!-- <div class=" jumbotron" id="ggg"> -->
+				
+						<div class="list-group " id="userlist">
+    <a href="#" class="list-group-item active">
+        <h4 class="list-group-item-heading">
+            聊天室成员
+        </h4>
+    </a>
+    
+</div>
+
+
+				<!-- </div> -->
+					<!-- <ul class="jumbotron" id="ggg">
+						
+					</ul> -->
+			</div>
+
+	</div>
+</div>
+
+
+<div class="container">
+<div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" 
+aria-hidden="true" data-backdrop="static" data-keyboard="false">  
+    <div class="modal-dialog" role="document">  
+        <div class="modal-content">  
+            <div class="modal-header">  
+               <!--  <button type="button" class="close" data-dismiss="modal" aria-label="Close">  
+                    <span aria-hidden="true">×</span>  
+                </button>   -->
+                <h2 class="modal-title" id="myModalLabel">昵称</h2>  
+            </div>  
+            <div class="modal-body">  
+               <div class="form-group">
+					<!-- <label>密码</label> -->
+					<input type="text" class="form-control input-lg" placeholder="请输入昵称" 
+					data-container="body" data-toggle="popover" data-placement="top"
+            data-content="昵称不能为空，不能出现<或>，且不能超过12位"
+					id="newname">	
+					<h3 class="alert alert-danger hide" role="alert" id="alertname">昵称不能为空，不能出现<或>,且不能超过12位</h3>
+					<!-- <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="提示框在顶部">提示框在顶部</button> -->
+				</div>
+            </div>  
+            <div class="modal-footer">  
+                <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>   -->
+                <button type="button" class="btn btn-success btn-sm" 
+
+                onclick="savename()">Save</button>  
+            </div>  
+        </div>  
+    </div>  
+</div>  
+</div>  
+</body>
+<script type="text/javascript">
+
+	// function bb(){
+	// 	$("#chat").val();
+	// 	// alert($("#chat").val());
+	// 	var ap="<li class='meida'><div class='media-left'><img src='./1.0.JP' alt='' class='media-object'>"+"</div><div class='media-body'><h6 class='meida-heading'></h6>"
+	// 		+"<p class='alert alert-success' role='alert'>"
+	// 		+$("#chat").val()+
+	// 		"</p></div></li>";
+	// 	$("#gg").append(ap);
+	// 	var h = $(document).height()-$(window).height();
+ //  $(document).scrollTop(h);
+	// }
+
+		function gf(){
+			 var websocket;
+			            var set = new Set();
+			            var mydate = new Date();
+			                websocket = new WebSocket("ws://127.0.0.1:8080/echo");
+			            websocket.onopen = function (evnt) {
+			                // $("#tou").html("链接服务器成功!")
+			                // $("#one").append(evnt.data);
+			                // websocket.send("##");
+			               	var name=$("#username").text();
+			               	// alert(name);
+		                	var a=name.length+name+"大家好,我是"+name+",请多多关照！";
+		                    websocket.send(a);
+
+			            };
+			            websocket.onmessage = function (evnt) {
+			                // $("#msg").html($("#msg").html() + "<br/>" + evnt.data);
+			                // $("#one").append(evnt.data);
+			                var bb=evnt.data;
+			                var namelenth=parseInt(bb[0]);
+			                 
+			                var name=bb.slice(1, 1+namelenth);
+			                set.add(name);
+			                var ap;
+			                if(namelenth==0){
+			                	// alert(namelenth);
+			                	name=bb.slice(2, 2+parseInt(bb[1]));
+			                	set.delete(name);
+			                	 ap="<li class='meida alert alert-success' role='alert'><div class='media-left'><img src='./image/face.jpg' width='50px'"+
+			                "style='margin-top: 40%' alt='' class='media-object img-circle '>"+
+			             "</div><div class='media-body '><h2 class='meida-heading text-warning '>"+name+
+			             "&nbsp;&nbsp;"+mydate.toLocaleString()+"</h2><p >大家再见,我下线了</p></div></li>";
+			             // alert(ap);
+			                }
+			                else if(name==$("#username").text())
+			                {
+			                	ap="<li class='meida alert alert-danger' role='alert'><div class='media-left'><img src='./image/face.jpg' width='40px'"+
+					                "style='margin-top: 50%' alt='' class='media-object img-circle '>"+
+					             "</div><div class='media-body '><h2 class='meida-heading text-warning '> "+
+					                $("#username").html()+"&nbsp"+mydate.toLocaleString()+
+					                "</h2>"+"<p ><xmp>"+bb.slice(1+namelenth)+"</xmp></p></div></li>";
+			                }
+			                else
+			                {
+			                ap="<li class='meida alert alert-success' role='alert'><div class='media-left'><img src='./image/face.jpg' width='50px'"+
+			                "style='margin-top: 40%' alt='' class='media-object img-circle '>"+
+			             "</div><div class='media-body '><h2 class='meida-heading text-warning '>"+name+
+			             "&nbsp;&nbsp;"+mydate.toLocaleString()+"</h2>"+"<p ><xmp>"+bb.slice(1+namelenth)+"</xmp></p></div></li>";
+			         }
+			         // alert(ap);
+					$("#gg").append(ap);
+					var h = $(document).height()-$(window).height();
+					$(document).scrollTop(h);
+					 // 用户列表
+			                var listnameset="<a href='#' class='list-group-item active'>"+
+    						"<h4 class='list-group-item-heading'>聊天室成员</h4></a>";
+    						$("#userlist").html(listnameset);
+			                set.forEach(function (item) {
+			                	if(item.toString()!=""){
+							    $("#userlist").append("<a href='#'' class='list-group-item'>"+
+        					"<h4 class='list-group-item-heading'>"+
+        					"<span class='glyphicon glyphicon-user'></span >"+item.toString()+"</h4></a>");}
+							});
+
+			            };
+			            websocket.onerror = function (evnt) {
+			            };
+			            websocket.onclose = function (evnt) {
+			                // $("#tou").html("与服务器断开了链接!")
+			                	var name=$("#username").text();
+			                	var a=name.length+name+"大家再见,我下线了";
+			                	// alert("aSome");
+			                    websocket.send(a);
+
+			            }
+			      $("#bb").bind("click", function() {
+			      	// alert("aSome");
+			      	var mytime=mydate.toLocaleTimeString(); //获取当前时间
+					// alert(mydate.toLocaleString()); //获取日期与时间
+
+					// alert($("#username").html());
+     //          		 var ap="<li class='meida alert alert-danger' role='alert'><div class='media-left'><img src='./image/face.jpg' width='40px'"+
+			  //               "style='margin-top: 50%' alt='' class='media-object img-circle '>"+
+			  //            "</div><div class='media-body '><h2 class='meida-heading text-warning '> "+
+			  //               $("#username").html()+"&nbsp"+mydate.toLocaleString()+
+			  //               "</h2>"+"<p ><xmp>"+$("#chat").val()+"</xmp></p></div></li>";
+					// $("#gg").append(ap);
+					// var h = $(document).height()-$(window).height();
+					// $(document).scrollTop(h);
+					var name=$("#username").text();
+					// alert(name);
+                	var a=name.length+name+$("#chat").val();
+                	 // alert(a);
+                    websocket.send(a);
+            });
+		}
+
+        $(function(){
+        	$("#newname").focus();  
+        	 $("#myModal").modal('show');
+
+			  
+        });
+
+
+// /^<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$/
+        // 更改名字
+        function savename(){
+        	// $("#newname").val()
+        	 // alert($("#newname").val());
+        	if(/[.*<|>.*]|.{12}/.test($("#newname").val())||$("#newname").val()==""){
+        		// alert("不合法");
+        		 $("[data-toggle='popover']").popover('show'); 
+        		// $("#alertname").show();
+        		$("#newname").focus();
+        		return ;
+        	}
+
+        	$("#username").text($("#newname").val());
+        	// alert($("#username").val());
+        	 $('#myModal').modal('hide');
+        	 gf();
+        }
+        
+        $("#newname").focus(function(event) {
+        	/* Act on the event */
+        	$("[data-toggle='popover']").popover('show'); 
+        }).blur(function(event) {
+        	/* Act on the event */
+        	$("[data-toggle='popover']").popover('hide'); 
+        });
+</script>
+</html>

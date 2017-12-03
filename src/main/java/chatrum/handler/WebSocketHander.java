@@ -6,7 +6,11 @@ import org.springframework.web.socket.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by zhuqiang on 2015/6/22 0022.
@@ -16,16 +20,18 @@ public class WebSocketHander implements WebSocketHandler {
 
     private static final ArrayList<WebSocketSession> users = new ArrayList<WebSocketSession>();
     private static final ArrayList<TextMessage> textMessage= new ArrayList<TextMessage>();
+	private HashMap<WebSocketSession,TextMessage> map=new HashMap<WebSocketSession,TextMessage>();
+//    private HashSet<WebSocketSession> set= new HashSet<WebSocketSession>();
     //初次链接成功执行
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         logger.debug("链接成功......");
         users.add(session);
-        String userName = (String) session.getAttributes().get("WEBSOCKET_USERNAME");
-        if(userName!= null){
-            //查询未读消息
-            int count = 5;
-            session.sendMessage(new TextMessage(count + ""));
-        }
+//        String userName = (String) session.getAttributes().get("WEBSOCKET_USERNAME");
+//        if(userName!= null){
+//            //查询未读消息
+//            int count = 5;
+//            session.sendMessage(new TextMessage(count + ""));
+//        }
         for (TextMessage textMessage2 : textMessage) {
         	session.sendMessage(textMessage2);
 		}
@@ -33,8 +39,10 @@ public class WebSocketHander implements WebSocketHandler {
 
     //接受消息处理消息
     public void handleMessage(WebSocketSession webSocketSession, WebSocketMessage<?> webSocketMessage) throws Exception {
+    	
     	textMessage.add(new TextMessage(webSocketMessage.getPayload() + ""));
-    
+//    	System.out.println(webSocketMessage.getPayload());
+    	TextMessage put = map.put(webSocketSession, new TextMessage(webSocketMessage.getPayload() + "" ));
     	sendMessageToUsers(webSocketSession,new TextMessage(webSocketMessage.getPayload() + ""));
     }
 
@@ -48,6 +56,10 @@ public class WebSocketHander implements WebSocketHandler {
 
     public void afterConnectionClosed(WebSocketSession webSocketSession, CloseStatus closeStatus) throws Exception {
         logger.debug("链接关闭......" + closeStatus.toString());
+//        System.out.println(map.get(webSocketSession));
+       String a = "0"+map.get(webSocketSession).getPayload();
+      TextMessage bb=new TextMessage(a);
+        sendMessageToUsers(webSocketSession,bb);
         users.remove(webSocketSession);
     }
 
@@ -64,7 +76,7 @@ public class WebSocketHander implements WebSocketHandler {
     	
         for (WebSocketSession user : users) {
             try {
-                if (user.isOpen()&&user!=webSocketSession) {
+                if (user.isOpen()) {
                     user.sendMessage(message);
                 }
             } catch (IOException e) {
