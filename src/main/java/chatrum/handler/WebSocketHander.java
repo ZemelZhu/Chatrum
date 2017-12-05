@@ -32,9 +32,17 @@ public class WebSocketHander implements WebSocketHandler {
 //            int count = 5;
 //            session.sendMessage(new TextMessage(count + ""));
 //        }
+        for(TextMessage value:map.values()) {
+       	 String a = "@"+value.getPayload();
+            TextMessage bb=new TextMessage(a);
+              session.sendMessage(bb);
+       }
         for (TextMessage textMessage2 : textMessage) {
-        	session.sendMessage(textMessage2);
+        	String a = "!"+textMessage2.getPayload();
+            TextMessage bb=new TextMessage(a);
+        	session.sendMessage(bb);
 		}
+        
     }
 
     //接受消息处理消息
@@ -51,16 +59,31 @@ public class WebSocketHander implements WebSocketHandler {
             webSocketSession.close();
         }
         logger.debug("链接出错，关闭链接......");
+        String a = map.get(webSocketSession).getPayload();
+        TextMessage bb=new TextMessage("0"+a);
+          sendMessageToUsers(webSocketSession,bb);
+          String b=(String) a.subSequence(0, 1);
+          String c=(String) a.subSequence(1, 1+Integer.parseInt(b));
+          System.out.println(c);
+          c=b+c+"大家再见,我下线了!";
+          textMessage.add(new TextMessage(c));
         users.remove(webSocketSession);
+        map.remove(webSocketSession);
     }
 
     public void afterConnectionClosed(WebSocketSession webSocketSession, CloseStatus closeStatus) throws Exception {
         logger.debug("链接关闭......" + closeStatus.toString());
 //        System.out.println(map.get(webSocketSession));
-       String a = "0"+map.get(webSocketSession).getPayload();
-      TextMessage bb=new TextMessage(a);
+       String a = map.get(webSocketSession).getPayload();
+      TextMessage bb=new TextMessage("0"+a);
         sendMessageToUsers(webSocketSession,bb);
+        String b=(String) a.subSequence(0, 1);
+        String c=(String) a.subSequence(1, 1+Integer.parseInt(b));
+        System.out.println(c);
+        c=b+c+"大家再见,我下线了!";
+        textMessage.add(new TextMessage(c));
         users.remove(webSocketSession);
+        map.remove(webSocketSession);
     }
 
     public boolean supportsPartialMessages() {
