@@ -1,19 +1,11 @@
 	.main{
-	
 		margin-left: 4%;
 		margin-right: 3%;
-
 	}
 	#messageList{
-	
 		font-size: 2vmin;
 	}
-
-
-	
-	
 	body{
 		font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei UI", "Microsoft YaHei", SimHei, "\5B8B\4F53", simsun, sans-serif;
-		background-color:#fff;
+		background-color:#eee;
 	}
-	
