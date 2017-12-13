@@ -9,7 +9,6 @@
 		<spring.version>4.1.3.RELEASE</spring.version>
 		<slf4j.version>1.6.4</slf4j.version>
 	</properties>
-
     <dependencies>
         <!-- 单元测试 -->
         <!-- websocket聊天室核心实现全双工 -->

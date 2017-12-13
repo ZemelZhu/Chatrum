@@ -18,7 +18,8 @@
 		<div class="container ">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="https://github.com/Vimmone/Chatrum">
-					<span class="glyphicon glyphicon-th-large"></span > 我的聊天室
+					<span class="glyphicon glyphicon-th-large"></span >
+					我的聊天室
 				</a>
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
 					<span class="icon-bar"></span>
@@ -30,12 +31,9 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li class="disable">
 						<a >
-							<span class="glyphicon glyphicon-off"></span >&nbsp;&nbsp;<span id="username"></span> 
+							<span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;
+							<span id="username"></span> 
 						</a>
-						<!--  <a  class="dropdown-toggle"  role="button" >
-						 	<span class="glyphicon glyphicon-user"></span ><span id="username"></span> 
-						 </a> -->
-						
 					</li>
 				</ul>
 				<form class="navbar-form navbar-left">
@@ -71,31 +69,30 @@
 	<!--
 		 登陆必须先输入名字
 		隐藏模态框
-	 -->
+	-->
 	<div class="container">
 		<div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 		aria-hidden="true" data-backdrop="static" data-keyboard="false">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h2 class="modal-title" id="myModalLabel">昵称</h2>
-				</div>
-				<div class="modal-body">
-					<div class="form-group">
-						<input type="text" class="form-control input-lg" placeholder="请输入昵称"
-						data-container="body" data-toggle="popover" data-placement="top"
-						data-content="昵称不能为空，不能出现<或>，且不能超过9位"
-						id="newname">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h2 class="modal-title" id="myModalLabel">昵称</h2>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-info " data-target="#newname"
-					onclick="savename()">保存</button>
+					<div class="modal-body">
+						<div class="form-group">
+							<input type="text" class="form-control input-lg" placeholder="请输入昵称"
+							data-container="body" data-toggle="popover" data-placement="top"
+							data-content="昵称不能为空，不能出现<或>，且不能超过9位"
+							id="newname">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-info " data-target="#newname"
+						onclick="savename()">保存</button>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </body>
-
 </html>

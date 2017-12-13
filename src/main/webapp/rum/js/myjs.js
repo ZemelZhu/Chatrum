@@ -2,7 +2,7 @@ function webSocketSession(){
 	var websocket;
 	var Onlineset = new Set();//维护在线人数的容器
 	var mydate = new Date();//时间对象，用于显示时间
-	websocket = new WebSocket("ws://120.78.164.110:8080/Chatrum/echo");
+	websocket = new WebSocket("ws://127.0.0.1:8080/echo");
 	websocket.onopen = function (evnt) {
 		var name=$("#username").text();
 		websocket.send("a"+name);
