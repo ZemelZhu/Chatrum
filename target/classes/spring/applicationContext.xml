@@ -8,7 +8,7 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd	">
 
 	
-	<!-- 自动注入mms中的bean -->
+	<!-- 自动注入chatrum中的bean -->
 	<context:component-scan base-package="chatrum" />
 
 
