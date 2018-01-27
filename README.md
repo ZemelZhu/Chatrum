@@ -10,5 +10,5 @@
  ## 预览（pc端）
    ![Chatrum](http://img.blog.csdn.net/20171228211417962 "pc端视图")  
  ## 预览（移动端）
-   ![Chatrum](http://img.blog.csdn.net/20180127163849680?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzU0NDI5NTg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast "移动端视图") 
+   ![Chatrum](http://img.blog.csdn.net/20180127164356621?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzU0NDI5NTg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast "移动端视图") 
  
