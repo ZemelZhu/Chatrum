@@ -5,7 +5,7 @@ function webSocketSession(){
 	websocket = new WebSocket("ws://127.0.0.1:8080/echo");
 	websocket.onopen = function (evnt) {
 		var name=$("#username").text();
-		websocket.send("a"+name);//发送名字给全部在线用户，加入队列中
+		websocket.send("a"+name);
 	};
 
 	websocket.onmessage = function (evnt) {
@@ -63,9 +63,6 @@ function webSocketSession(){
 	websocket.onclose = function (evnt) {
 	};
 	$("#sendMessage").bind("click", function() {
-		if($("#chat").val()=="") {//禁止发送非空内容
-			return false;
-		}
 		var name=$("#username").text();
 		var a=name.length+name+$("#chat").val();
 		websocket.send(a);
@@ -73,9 +70,6 @@ function webSocketSession(){
         $("#navbar-collapse").collapse('hide');//手机响应式下拉菜单隐藏
 	});
 	$('#chat').bind('keypress',function(event){
-		if($("#chat").val()=="") {//禁止发送非空内容
-			return false;
-		}
         if(event.keyCode == "13")//回车提交
         {
             var name=$("#username").text();
@@ -112,6 +106,7 @@ function savename(){// 保存名字
 	}
 	$("#username").text($("#newname").val());
 	$('#myModal').modal('hide');
+	$("[data-toggle='popover']").popover('hide');
 	webSocketSession();//进入核心模块
 }
 // 名字框绑定提示信息事件
