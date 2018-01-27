@@ -1,1 +1,3 @@
+*.js linguist-language=javaWeb
 *.css linguist-language=javaWeb
+*.html linguist-language=javaWeb
